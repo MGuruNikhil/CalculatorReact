@@ -11,6 +11,8 @@ function Calc() {
     }
 
     const handelEql = (e)=> {
+        let ans;
+        let t;
         var temp='';
         const nums = [];
         const opps = [];
@@ -25,17 +27,54 @@ function Calc() {
                 temp+=exp[i];
             }
         }
-        nums.push(parseFloat(temp));
-        temp='';
-        if(opps!=nums.length) {
+        if(temp!='') {
+            nums.push(parseFloat(temp));
+            temp='';
+        }
+        if(opps.length!=(nums.length)-1) {
             alert("incorrect expression");
             setExp("");
             return;
         }
+        for(let i=0;i<opps.length;i++) {
+            if(opps[i]=='*'||opps[i]=='/') {
+                if(opps[i]=='*') {
+                    t = nums[i]*nums[i+1];
+                }
+                else if(opps[i]=='/') {
+                    if(nums[i+1]==0) {
+                        alert("Can't divide any number by zero");
+                        setExp("");
+                        return;
+                    }
+                    t = nums[i]/nums[i+1];
+                }
+                nums.splice(i,2);
+                nums.splice(i,0,t);
+                opps.splice(i,1);
+                i--;
+            }
+        }
+        for(let i=0;i<opps.length;i++) {
+            if(opps[i]=='+'||opps[i]=='-') {
+                if(opps[i]=='+') {
+                    t = nums[i]+nums[i+1];
+                }
+                else if(opps[i]=='-') {
+                    t = nums[i]-nums[i+1];
+                }
+                nums.splice(i,2);
+                nums.splice(i,0,t);
+                opps.splice(i,1);
+                i--;
+            }
+        }
+        setExp(nums[0]);
     }
 
     return (
         <>
+            <h1 align="center">Calculator</h1>
             <input type="text" name="exp" id="exp" value={exp} placeholder="Enter the expression" onChange={(e)=>setExp(e.target.value)} required/>
             <div className="btns">
                 <button className="num" onClick={handelBtn}>1</button>

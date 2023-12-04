@@ -1,0 +1,25 @@
+.btns {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.num {
+    background-color: #0275d8;
+    margin: 3%;
+}
+
+.eql {
+    background-color: #5cb85c;
+    margin: 3%;
+}
+
+.opp {
+    background-color: #f0ad4e;
+    margin: 3%;
+}
+
+.sym {
+    background-color: #5bc0de;
+    margin: 3%;
+}
